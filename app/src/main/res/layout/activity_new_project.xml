@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <EditText
+            android:id="@+id/id_title_textField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="@string/label_project_title">
+
+    </EditText>
+
+    <EditText
+            android:id="@+id/id_description_textField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="@string/label_project_description">
+
+    </EditText>
+
+    <EditText
+            android:id="@+id/id_task_textField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="@string/label_project_tasks">
+
+    </EditText>
+    
+    <Button
+            android:id="@+id/id_save_new_project_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/save_button_text"
+            android:textAllCaps="false" />
+
+</LinearLayout>

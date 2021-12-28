@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+            android:id="@+id/navigation_storage"
+            android:icon="@drawable/outline_inventory_2_24"
+            android:title="@string/title_storage"/>
+
+    <item
+            android:id="@+id/navigation_dashboard"
+            android:icon="@drawable/outline_receipt_long_24"
+            android:title="@string/title_dashboard"/>
+
+    <item
+            android:id="@+id/navigation_more"
+            android:icon="@drawable/outline_more_horiz_24"
+            android:title="@string/title_more"/>
+
+</menu>

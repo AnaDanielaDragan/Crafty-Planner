@@ -1,0 +1,142 @@
+[
+  {
+    "id" : "1",
+    "title": "Project 1",
+    "description" : "This is the description of the Project 1",
+    "taskCounter" : "0",
+    "tasks" : [
+      {
+        "text" : "Task 1 of Project 1",
+        "status" : "UNCHECKED"
+      },
+      {
+        "text" : "Task 2 of Project 1",
+        "status" : "UNCHECKED"
+      },
+      {
+        "text" : "Task 3 of Project 1",
+        "status" : "UNCHECKED"
+      },
+      {
+        "text" : "Task 4 of Project 1",
+        "status" : "UNCHECKED"
+      },
+      {
+        "text" : "Task 5 of Project 1",
+        "status" : "UNCHECKED"
+      }
+    ]
+  },
+  {
+    "id" : "2",
+    "title": "Project 2",
+    "description" : "This is the description of the Project 2",
+    "taskCounter" : "0",
+    "tasks" : [
+      {
+        "text" : "Task 1 of Project 2",
+        "status" : "UNCHECKED"
+      },
+      {
+        "text" : "Task 2 of Project 2",
+        "status" : "UNCHECKED"
+      },
+      {
+        "text" : "Task 3 of Project 2",
+        "status" : "UNCHECKED"
+      },
+      {
+        "text" : "Task 4 of Project 2",
+        "status" : "UNCHECKED"
+      },
+      {
+        "text" : "Task 5 of Project 2",
+        "status" : "UNCHECKED"
+      }
+    ]
+  },
+  {
+    "id" : "3",
+    "title": "Project 3",
+    "description" : "This is the description of the Project 3",
+    "taskCounter" : "0",
+    "tasks" : [
+      {
+        "text" : "Task 1 of Project 3",
+        "status" : "UNCHECKED"
+      },
+      {
+        "text" : "Task 2 of Project 3",
+        "status" : "UNCHECKED"
+      },
+      {
+        "text" : "Task 3 of Project 3",
+        "status" : "UNCHECKED"
+      },
+      {
+        "text" : "Task 4 of Project 3",
+        "status" : "UNCHECKED"
+      },
+      {
+        "text" : "Task 5 of Project 3",
+        "status" : "UNCHECKED"
+      }
+    ]
+  },
+  {
+    "id" : "4",
+    "title": "Project 4",
+    "description" : "This is the description of the Project 4",
+    "taskCounter" : "0",
+    "tasks" : [
+      {
+        "text" : "Task 1 of Project 4",
+        "status" : "UNCHECKED"
+      },
+      {
+        "text" : "Task 2 of Project 4",
+        "status" : "UNCHECKED"
+      },
+      {
+        "text" : "Task 3 of Project 4",
+        "status" : "UNCHECKED"
+      },
+      {
+        "text" : "Task 4 of Project 4",
+        "status" : "UNCHECKED"
+      },
+      {
+        "text" : "Task 5 of Project 4",
+        "status" : "UNCHECKED"
+      }
+    ]
+  },
+  {
+    "id" : "5",
+    "title": "Project 5",
+    "description" : "This is the description of the Project 5",
+    "taskCounter" : "0",
+    "tasks" : [
+      {
+        "text" : "Task 1 of Project 5",
+        "status" : "UNCHECKED"
+      },
+      {
+        "text" : "Task 2 of Project 5",
+        "status" : "UNCHECKED"
+      },
+      {
+        "text" : "Task 3 of Project 5",
+        "status" : "UNCHECKED"
+      },
+      {
+        "text" : "Task 4 of Project 5",
+        "status" : "UNCHECKED"
+      },
+      {
+        "text" : "Task 5 of Project 5",
+        "status" : "UNCHECKED"
+      }
+    ]
+  }
+]

@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Crafty Planner</string>
+    <string name="title_storage">Storage</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_more">More</string>
+
+    <string name="label_project_title">Title</string>
+    <string name="label_project_description">Description</string>
+    <string name="label_project_tasks">Tasks</string>
+    <string name="save_button_text">Save</string>
+</resources>

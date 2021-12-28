@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/mobile_navigation"
+            app:startDestination="@+id/navigation_dashboard">
+
+    <fragment
+            android:id="@+id/navigation_storage"
+            android:name="com.craftyplanner.ui.storage.StorageFragment"
+            tools:layout="@layout/fragment_storage"/>
+
+    <fragment
+            android:id="@+id/navigation_dashboard"
+            android:name="com.craftyplanner.ui.dashboard.DashboardFragment"
+            tools:layout="@layout/fragment_dashboard"/>
+
+    <fragment
+            android:id="@+id/navigation_more"
+            android:name="com.craftyplanner.ui.more.MoreFragment"
+            tools:layout="@layout/fragment_more"/>
+</navigation>
