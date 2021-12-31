@@ -59,8 +59,8 @@ public class DashboardFragment extends Fragment {
     }
 
     private void setRecyclerViewAdapter() {
-        adapter = new DashboardAdapter(view.getContext(), projectDao.getProjects());
         projectDao = application.getProjectDao();
+        adapter = new DashboardAdapter(view.getContext(), projectDao.getProjects());
         recyclerView.setAdapter(adapter);
     }
 }
