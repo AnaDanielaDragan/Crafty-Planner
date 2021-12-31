@@ -8,4 +8,7 @@
     <string name="label_project_description">Description</string>
     <string name="label_project_tasks">Tasks</string>
     <string name="save_button_text">Save</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="share">Share</string>
 </resources>
