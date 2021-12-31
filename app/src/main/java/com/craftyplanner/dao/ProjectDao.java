@@ -7,6 +7,6 @@ public interface ProjectDao{
     ArrayMap<String, Project> getProjects();
     Project getProject(String projectId);
     void addProject(Project newProject);
-    void updateProject(Project project);
+    void updateProject(String originalTitle, Project project);
     void deleteProject(String projectID);
 }

@@ -95,4 +95,24 @@ public class DBHandler extends SQLiteOpenHelper {
         return projects;
     }
 
+    public void updateProject(String originalTitle, String title, String description, String tasks, Integer taskCount){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(TITLE_COL, title);
+        values.put(DESCRIPTION_COL, description);
+        values.put(TASKS_COL, tasks);
+        values.put(TASK_COUNT_COL, taskCount);
+
+        db.update(TABLE_NAME, values, "title=?", new String[]{originalTitle});
+        db.close();
+    }
+
+    public void deleteProject(String title){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.delete(TABLE_NAME, "title=?", new String[]{title});
+        db.close();
+    }
+
 }

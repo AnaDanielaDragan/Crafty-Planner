@@ -24,29 +24,43 @@ public class DashboardFragment extends Fragment {
     private FloatingActionButton addNewProjectButton;
 
     private ProjectDao projectDao;
+    private DashboardAdapter adapter;
+    private CustomApplication application;
+    private View view;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        view = inflater.inflate(R.layout.fragment_dashboard, container, false);
 
-        CustomApplication application = (CustomApplication) getActivity().getApplication();
-        projectDao = application.getProjectDao();
+        application = (CustomApplication) getActivity().getApplication();
 
         recyclerView = view.findViewById(R.id.id_recyclerView_dashboard);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false));
-        ArrayMap<String, Project> projects = projectDao.getProjects();
-        recyclerView.setAdapter(new DashboardAdapter(view.getContext(), projectDao.getProjects()));
+        setRecyclerViewAdapter();
 
         addNewProjectButton = view.findViewById(R.id.id_button_new_project);
         addNewProjectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent  = new Intent(view.getContext(), NewProjectActivity.class);
+                intent.putExtra("Option", "save");
                 view.getContext().startActivity(intent);
             }
         });
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setRecyclerViewAdapter();
+    }
+
+    private void setRecyclerViewAdapter() {
+        adapter = new DashboardAdapter(view.getContext(), projectDao.getProjects());
+        projectDao = application.getProjectDao();
+        recyclerView.setAdapter(adapter);
     }
 }

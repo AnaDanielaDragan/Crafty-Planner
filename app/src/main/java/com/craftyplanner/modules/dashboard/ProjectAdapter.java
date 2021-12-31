@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.craftyplanner.R;
 import com.craftyplanner.dao.ProjectDao;
-import com.craftyplanner.dao.ProjectDaoImpl;
 import com.craftyplanner.objects.Project;
 import com.craftyplanner.objects.Task;
 import org.jetbrains.annotations.NotNull;
@@ -20,11 +19,10 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewHold
     private Project currentProject;
     private ProjectDao projectDao;
 
-    public ProjectAdapter(Context context, Project currentProject){
+    public ProjectAdapter(Context context, Project currentProject, ProjectDao projectDao){
         this.context = context;
         this.currentProject = currentProject;
-        this.projectDao = new ProjectDaoImpl();
-        ProjectDaoImpl.initializeProjectList();
+        this.projectDao = projectDao;
     }
 
     @NonNull
@@ -53,7 +51,8 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewHold
                     currentTask.setStatus("UNCHECKED");
                 }
                 currentProject.updateTaskCount();
-                projectDao.updateProject(currentProject);
+                projectDao.updateProject(currentProject.getTitle(), currentProject);
+                //TODO: solve here to update tasks status
             }
         });
     }

@@ -39,12 +39,18 @@ public class ProjectDaoImplSQLite implements ProjectDao{
     }
 
     @Override
-    public void updateProject(Project project) {
+    public void updateProject(String originalTitle, Project project) {
+        AtomicReference<String> tasks = new AtomicReference<>();
+        tasks.set("");
 
+        project.getTasks().forEach(task -> {
+            tasks.set(tasks + "," + task.getText());
+        });
+        dbHandler.updateProject(originalTitle, project.getTitle(), project.getDescription(), tasks.get(), project.getTaskCount().getValue());
     }
 
     @Override
-    public void deleteProject(String projectID) {
-
+    public void deleteProject(String projectTitle) {
+        dbHandler.deleteProject(projectTitle);
     }
 }
