@@ -8,5 +8,5 @@ public interface ProjectDao{
     Project getProject(String projectId);
     void addProject(Project newProject);
     void updateProject(String originalTitle, Project project);
-    void deleteProject(String projectID);
+    void deleteProject(Project project);
 }

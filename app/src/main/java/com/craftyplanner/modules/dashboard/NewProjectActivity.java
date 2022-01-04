@@ -81,7 +81,7 @@ public class NewProjectActivity extends AppCompatActivity {
         ArrayList<Task> tasksAsList = new ArrayList<>();
         Arrays.stream(tasks.split(",")).forEach(task -> tasksAsList.add(new Task(task, "UNCHECKED")));
 
-        Project project = new Project(title, description, tasksAsList);
+        Project project = new Project(currentProject.getId(),title, description, tasksAsList, 0);
         projectDao.updateProject(currentProject.getTitle(), project);
 
         Toast.makeText(NewProjectActivity.this, "Project saved.", Toast.LENGTH_SHORT).show();
@@ -101,7 +101,7 @@ public class NewProjectActivity extends AppCompatActivity {
         ArrayList<Task> tasksAsList = new ArrayList<>();
         Arrays.stream(tasks.split(",")).forEach(task -> tasksAsList.add(new Task(task, "UNCHECKED")));
 
-        Project currentProject = new Project(title, description, tasksAsList);
+        Project currentProject = new Project(title, description, tasksAsList, 0);
         projectDao.addProject(currentProject);
 
         Toast.makeText(NewProjectActivity.this, "Project saved.", Toast.LENGTH_SHORT).show();

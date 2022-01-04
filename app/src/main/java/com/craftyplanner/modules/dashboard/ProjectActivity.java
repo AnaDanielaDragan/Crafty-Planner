@@ -84,7 +84,7 @@ public class ProjectActivity extends AppCompatActivity {
         alert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
             public void onClick(DialogInterface dialog, int which) {
-                projectDao.deleteProject(currentProject.getTitle());
+                projectDao.deleteProject(currentProject);
                 finish();
                 //see how to update project list after this
             }
