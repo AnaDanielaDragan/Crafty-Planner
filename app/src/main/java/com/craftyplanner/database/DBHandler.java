@@ -15,7 +15,7 @@ import java.util.Arrays;
 public class DBHandler extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "PROJECTS.DB";
-    private static final int DB_VERSION = 3;
+    private static final int DB_VERSION = 4;
 
     //Projects table
     private static final String PROJECTS_TABLE_NAME = "PROJECTS";

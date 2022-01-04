@@ -52,7 +52,6 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewHold
                 }
                 currentProject.updateTaskCount();
                 projectDao.updateProject(currentProject.getTitle(), currentProject);
-                //TODO: solve here to update tasks status
             }
         });
     }

@@ -50,6 +50,7 @@ public class ProjectActivity extends AppCompatActivity {
         super.onResume();
         currentProject = projectDao.getProjects().get(projectId);
         initializeElements();
+        handleProjectTaskCount();
     }
 
     @Override
