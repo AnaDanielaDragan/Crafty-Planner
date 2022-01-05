@@ -54,7 +54,7 @@ public class NewProjectActivity extends AppCompatActivity {
 
             AtomicReference<String> tasks = new AtomicReference<>();
             currentProject.getTasks().forEach(task -> {
-                tasks.set(tasks + "," + task);
+                tasks.set(tasks + "," + task.getText());
             });
             tasksInputText.setText(tasks.get());
         }

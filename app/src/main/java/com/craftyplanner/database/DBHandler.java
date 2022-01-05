@@ -179,7 +179,7 @@ public class DBHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         db.delete(PROJECTS_TABLE_NAME, "title=?", new String[]{project.getTitle()});
-        db.delete(TASKS_TABLE_NAME, "project=", new String[]{project.getId()});
+        db.delete(TASKS_TABLE_NAME, "project=?", new String[]{project.getId()});
         db.close();
     }
 

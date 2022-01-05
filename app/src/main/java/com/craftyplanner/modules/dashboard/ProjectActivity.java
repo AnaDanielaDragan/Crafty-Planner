@@ -87,7 +87,6 @@ public class ProjectActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 projectDao.deleteProject(currentProject);
                 finish();
-                //see how to update project list after this
             }
         });
         alert.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
