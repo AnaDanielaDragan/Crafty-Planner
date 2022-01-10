@@ -11,4 +11,5 @@
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
     <string name="share">Share</string>
+    <string name="delete_task_button_text">X</string>
 </resources>
