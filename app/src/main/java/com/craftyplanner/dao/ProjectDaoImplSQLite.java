@@ -20,7 +20,7 @@ public class ProjectDaoImplSQLite implements ProjectDao{
 
     @Override
     public Project getProject(String projectId) {
-        return null;
+        return dbHandler.readProject(projectId);
     }
 
     @Override
@@ -29,8 +29,8 @@ public class ProjectDaoImplSQLite implements ProjectDao{
     }
 
     @Override
-    public void updateProject(String originalTitle, Project project) {
-        dbHandler.updateProject(originalTitle, project);
+    public void updateProject(Project project) {
+        dbHandler.updateProject(project);
     }
 
     @Override
