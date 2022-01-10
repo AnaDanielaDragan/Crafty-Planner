@@ -114,6 +114,39 @@ public class DBHandler extends SQLiteOpenHelper {
 
         return id.toString();
     }
+    public Project readProject(String projectID){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + PROJECTS_TABLE_NAME + " WHERE ID=?", new String[]{projectID});
+        Project project = null;
+
+        if(cursor.moveToFirst()){
+            do {
+                String title = cursor.getString(1);
+                String description = cursor.getString(2);
+                Integer taskCount = cursor.getInt(3);
+
+                ArrayList<Task> taskList = new ArrayList<>();
+
+                //Read tasks values
+                Cursor cursorTasks = db.rawQuery("SELECT * FROM " + TASKS_TABLE_NAME + " WHERE project=?", new String[]{projectID} );
+                if(cursorTasks.moveToFirst()){
+                    do{
+                        String text = cursorTasks.getString(1);
+                        String status = cursorTasks.getString(2);
+
+                        taskList.add(new Task(text, status));
+                    } while (cursorTasks.moveToNext());
+                }
+                cursorTasks.close();
+                project = new Project(projectID, title, description, taskList, taskCount);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return project;
+    }
 
     public ArrayMap<String, Project> readProjects(){
         SQLiteDatabase db = this.getReadableDatabase();
@@ -153,7 +186,7 @@ public class DBHandler extends SQLiteOpenHelper {
         return projects;
     }
 
-    public void updateProject(String originalTitle, Project project){
+    public void updateProject(Project project){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -161,14 +194,17 @@ public class DBHandler extends SQLiteOpenHelper {
         values.put(DESCRIPTION_COL, project.getDescription());
         values.put(TASK_COUNT_COL, project.getTaskCount().getValue());
 
-        db.update(PROJECTS_TABLE_NAME, values, "title=?", new String[]{originalTitle});
+        db.update(PROJECTS_TABLE_NAME, values, "ID=?", new String[]{project.getId()});
+
+        //Remove old tasks from table
+        db.delete(TASKS_TABLE_NAME, "project=?", new String[]{project.getId()});
 
         ContentValues valuesTasks = new ContentValues();
         project.getTasks().forEach(task -> {
             valuesTasks.put(TEXT_COL, task.getText());
             valuesTasks.put(STATUS_COL, task.getStatus());
             valuesTasks.put(PROJECT_ASSIGNED_COL, project.getId());
-            db.update(TASKS_TABLE_NAME, valuesTasks, "project=?", new String[]{project.getId()});
+            db.insert(TASKS_TABLE_NAME, null, valuesTasks);
             valuesTasks.clear();
         });
 
