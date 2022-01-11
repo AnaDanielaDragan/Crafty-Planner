@@ -51,8 +51,7 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewHold
                     currentTask.setStatus("UNCHECKED");
                 }
                 currentProject.updateTaskCount();
-                projectDao.updateProject(currentProject.getTitle(), currentProject);
-                //TODO: solve here to update tasks status
+                projectDao.updateProject(currentProject);
             }
         });
     }

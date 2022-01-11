@@ -4,10 +4,6 @@ import android.content.Context;
 import android.util.ArrayMap;
 import com.craftyplanner.database.DBHandler;
 import com.craftyplanner.objects.Project;
-import com.craftyplanner.objects.Task;
-
-import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class ProjectDaoImplSQLite implements ProjectDao{
 
@@ -24,33 +20,21 @@ public class ProjectDaoImplSQLite implements ProjectDao{
 
     @Override
     public Project getProject(String projectId) {
-        return null;
+        return dbHandler.readProject(projectId);
     }
 
     @Override
     public void addProject(Project newProject) {
-        AtomicReference<String> tasks = new AtomicReference<>();
-        tasks.set("");
-
-        newProject.getTasks().forEach(task -> {
-            tasks.set(tasks + "," + task.getText());
-        });
-        dbHandler.addNewProject(newProject.getTitle(), newProject.getDescription(), tasks.get());
+        dbHandler.addNewProject(newProject);
     }
 
     @Override
-    public void updateProject(String originalTitle, Project project) {
-        AtomicReference<String> tasks = new AtomicReference<>();
-        tasks.set("");
-
-        project.getTasks().forEach(task -> {
-            tasks.set(tasks + "," + task.getText());
-        });
-        dbHandler.updateProject(originalTitle, project.getTitle(), project.getDescription(), tasks.get(), project.getTaskCount().getValue());
+    public void updateProject(Project project) {
+        dbHandler.updateProject(project);
     }
 
     @Override
-    public void deleteProject(String projectTitle) {
-        dbHandler.deleteProject(projectTitle);
+    public void deleteProject(Project project) {
+        dbHandler.deleteProject(project);
     }
 }

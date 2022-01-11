@@ -1,9 +1,6 @@
 package com.craftyplanner.objects;
 
 import androidx.lifecycle.MutableLiveData;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Project {
@@ -13,28 +10,20 @@ public class Project {
     private ArrayList<Task> tasks;
     private MutableLiveData<Integer> taskCount;
 
-    public Project(String title, String description, ArrayList<Task> tasks){
-        this.id = createId();
-        this.title = title;
-        this.description = description;
-        this.tasks = tasks;
-        this.taskCount = new MutableLiveData<>(0);
-    }
-
-    public Project(String id, String title, String description, ArrayList<Task> tasks){
+    public Project(String id, String title, String description, ArrayList<Task> tasks, Integer taskCount){
         this.id = id;
         this.title = title;
         this.description = description;
         this.tasks = tasks;
-        this.taskCount = new MutableLiveData<>(0);
+        this.taskCount = new MutableLiveData<>(taskCount);
     }
 
-    public Project(String id, String title, String description, ArrayList<Task> tasks, String taskCount){
-        this.id = id;
+    public Project(String title, String description, ArrayList<Task> tasks, Integer taskCount){
+        this.id = "";
         this.title = title;
         this.description = description;
         this.tasks = tasks;
-        this.taskCount = new MutableLiveData<>(Integer.getInteger(taskCount));
+        this.taskCount = new MutableLiveData<>(taskCount);
     }
 
     public String getId() { return id; }
@@ -49,6 +38,8 @@ public class Project {
     }
     public MutableLiveData<Integer> getTaskCount(){ return taskCount; }
 
+    public void setId(String id){this.id = id;}
+
     public void updateTaskCount(){
         Integer taskCounter = 0;
         for (Task task:tasks
@@ -58,11 +49,5 @@ public class Project {
             }
         }
         taskCount.setValue(taskCounter);
-    }
-
-    private String createId(){
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
-        LocalDateTime now = LocalDateTime.now();
-        return dtf.format(now);
     }
 }
