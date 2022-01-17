@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.craftyplanner.CustomApplication;
 import com.craftyplanner.R;
+import com.craftyplanner.connectivity.BluetoothHandler;
 import com.craftyplanner.dao.ProjectDao;
 import com.craftyplanner.objects.Project;
 
@@ -71,11 +72,23 @@ public class ProjectActivity extends AppCompatActivity {
                 handleDeleteProjectAction();
                 return true;
             case R.id.share:
-                //open share thingy here
+                handleShareProjectAction();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void handleShareProjectAction() {
+
+        BluetoothHandler bluetoothHandler = new BluetoothHandler(getApplication().getApplicationContext());
+
+        //Turn on Bluetooth
+        //Find a Device to pair with
+        //Set connection
+        //Transfer data
+        // -> transfer anything to test the whole stuff (a text or project title)
+        // -> transfer project
     }
 
     private void handleDeleteProjectAction() {
