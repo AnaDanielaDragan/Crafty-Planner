@@ -14,7 +14,6 @@ public class ShareProjectHandler {
     BluetoothHandler bluetoothHandler;
 
     public ShareProjectHandler(Context context){
-
         this.context = context;
         bluetoothHandler = new BluetoothHandler(context);
     }
@@ -25,29 +24,19 @@ public class ShareProjectHandler {
     }
 
     public void sendProject(Project project){
-
         String filename = "CraftyPlanner007";
+        String fileContents = ProjectParser.parseProjectToString(project);
 
-        createFileFromProject(filename, project);
-
-        File internalFile = new File(context.getFilesDir(), filename);
-        Uri contentUri = FileProvider.getUriForFile(context, context.getPackageName() + ".provider", internalFile);
-
-        bluetoothHandler.sendFileViaBluetooth(contentUri);
-    }
-
-    private void createFileFromProject(String filename, Project project) {
-
-        //create txt file from project object
-        // -> parse project object to string
-        // ->use code below
-
-        String fileContents = "Hello world!";
         try (FileOutputStream fos = context.openFileOutput(filename, Context.MODE_PRIVATE)) {
             fos.write(fileContents.getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        File internalFile = new File(context.getFilesDir(), filename);
+        Uri contentUri = FileProvider.getUriForFile(context, context.getPackageName() + ".provider", internalFile);
+
+        bluetoothHandler.sendFileViaBluetooth(contentUri);
     }
 
 }
