@@ -1,7 +1,9 @@
 package com.craftyplanner.modules.dashboard;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -9,6 +11,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.core.content.FileProvider;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +20,10 @@ import com.craftyplanner.R;
 import com.craftyplanner.connectivity.BluetoothHandler;
 import com.craftyplanner.dao.ProjectDao;
 import com.craftyplanner.objects.Project;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class ProjectActivity extends AppCompatActivity {
 
@@ -30,12 +37,14 @@ public class ProjectActivity extends AppCompatActivity {
 
     private String projectId;
 
+    private CustomApplication application;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project);
 
-        CustomApplication application = (CustomApplication) getApplication();
+        application = (CustomApplication) getApplication();
         projectDao = application.getProjectDao();
 
         Intent intent = getIntent();
@@ -83,7 +92,23 @@ public class ProjectActivity extends AppCompatActivity {
 
         BluetoothHandler bluetoothHandler = new BluetoothHandler(getApplication().getApplicationContext());
 
-        //Turn on Bluetooth
+        bluetoothHandler.initializeBluetooth();
+        bluetoothHandler.enableBluetooth();
+
+        String filename = "CraftyPlanner007";
+        String fileContents = "Hello world!";
+        try (FileOutputStream fos = application.getApplicationContext().openFileOutput(filename, Context.MODE_PRIVATE)) {
+            fos.write(fileContents.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        File internalFile = new File(getApplicationContext().getFilesDir(), filename);
+        Uri contentUri = FileProvider.getUriForFile(getApplicationContext(), getApplicationContext().getPackageName() + ".provider", internalFile);
+
+        bluetoothHandler.sendFileViaBluetooth(contentUri);
+
+
         //Find a Device to pair with
         //Set connection
         //Transfer data
