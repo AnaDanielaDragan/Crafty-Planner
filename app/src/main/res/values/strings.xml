@@ -12,4 +12,6 @@
     <string name="delete">Delete</string>
     <string name="share">Share</string>
     <string name="delete_task_button_text">X</string>
+    <string name="fileNameToSent">CraftyPlanner007</string>
+    <string name="sync">Sync</string>
 </resources>

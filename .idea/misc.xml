@@ -13,6 +13,7 @@
         <entry key="app/src/main/res/drawable/outline_inventory_2_24.xml" value="0.3770833333333333" />
         <entry key="app/src/main/res/drawable/outline_more_horiz_24.xml" value="0.3770833333333333" />
         <entry key="app/src/main/res/drawable/outline_share_24.xml" value="0.3770833333333333" />
+        <entry key="app/src/main/res/drawable/outline_sync_24.xml" value="0.3770833333333333" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.26268115942028986" />
         <entry key="app/src/main/res/layout/activity_new_project.xml" value="0.35989583333333336" />
         <entry key="app/src/main/res/layout/activity_project.xml" value="0.26268115942028986" />
@@ -21,6 +22,8 @@
         <entry key="app/src/main/res/layout/popup_window_new_project.xml" value="0.35989583333333336" />
         <entry key="app/src/main/res/layout/text_task_entry_new_project_activity.xml" value="0.35989583333333336" />
         <entry key="app/src/main/res/menu/action_button_menu.xml" value="0.37447916666666664" />
+        <entry key="app/src/main/res/menu/sync_button_menu.xml" value="0.37447916666666664" />
+        <entry key="app/src/main/res/xml/provider_paths.xml" value="0.18489583333333334" />
       </map>
     </option>
   </component>

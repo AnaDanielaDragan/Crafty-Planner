@@ -3,13 +3,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion 31
-    buildToolsVersion '31.0.0'
+    compileSdkVersion 29
+    buildToolsVersion '29.0.2'
 
     defaultConfig {
         applicationId "com.craftyplanner"
         minSdkVersion 26
-        targetSdkVersion 31
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
 
@@ -52,5 +52,8 @@ dependencies {
         resolutionStrategy.dependencySubstitution {
             substitute module('org.hamcrest:hamcrest-core:1.1') with module('junit:junit:4.10')
         }
+        resolutionStrategy { force 'androidx.core:core:1.5.0' }
+        resolutionStrategy { force 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'}
+        resolutionStrategy { force 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'}
     }
 }

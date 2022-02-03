@@ -10,7 +10,6 @@ import com.craftyplanner.objects.Project;
 import com.craftyplanner.objects.Task;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class DBHandler extends SQLiteOpenHelper {
 
@@ -214,7 +213,7 @@ public class DBHandler extends SQLiteOpenHelper {
     public void deleteProject(Project project){
         SQLiteDatabase db = this.getWritableDatabase();
 
-        db.delete(PROJECTS_TABLE_NAME, "title=?", new String[]{project.getTitle()});
+        db.delete(PROJECTS_TABLE_NAME, "ID=?", new String[]{project.getId()});
         db.delete(TASKS_TABLE_NAME, "project=?", new String[]{project.getId()});
         db.close();
     }

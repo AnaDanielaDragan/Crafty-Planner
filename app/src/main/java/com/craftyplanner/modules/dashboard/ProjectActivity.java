@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.craftyplanner.CustomApplication;
 import com.craftyplanner.R;
+import com.craftyplanner.connectivity.ShareProjectHandler;
 import com.craftyplanner.dao.ProjectDao;
 import com.craftyplanner.objects.Project;
 
@@ -29,12 +30,14 @@ public class ProjectActivity extends AppCompatActivity {
 
     private String projectId;
 
+    private CustomApplication application;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project);
 
-        CustomApplication application = (CustomApplication) getApplication();
+        application = (CustomApplication) getApplication();
         projectDao = application.getProjectDao();
 
         Intent intent = getIntent();
@@ -71,11 +74,19 @@ public class ProjectActivity extends AppCompatActivity {
                 handleDeleteProjectAction();
                 return true;
             case R.id.share:
-                //open share thingy here
+                handleShareProjectAction();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void handleShareProjectAction() {
+
+        ShareProjectHandler shareProjectHandler = new ShareProjectHandler(application.getApplicationContext());
+        shareProjectHandler.startConnection();
+        shareProjectHandler.sendProject(currentProject);
+
     }
 
     private void handleDeleteProjectAction() {
