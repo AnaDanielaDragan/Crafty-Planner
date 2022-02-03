@@ -13,6 +13,8 @@ import com.craftyplanner.objects.Project;
 import com.craftyplanner.objects.Task;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewHolder>{
 
     private Context context;
@@ -51,6 +53,16 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewHold
                     currentTask.setStatus("UNCHECKED");
                 }
                 currentProject.updateTaskCount();
+                //TODO: update status
+                if(Objects.equals(currentProject.getTaskCount().getValue(), currentProject.getTasks().size())){
+                    currentProject.setStatus("DONE");
+                }
+                else if(Objects.equals(currentProject.getTaskCount().getValue(), 0)){
+                    currentProject.setStatus("NEW");
+                }
+                else{
+                    currentProject.setStatus("IN_PROGRESS");
+                }
                 projectDao.updateProject(currentProject);
             }
         });

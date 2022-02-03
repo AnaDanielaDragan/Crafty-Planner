@@ -62,7 +62,7 @@ public class NewProjectActivity extends AppCompatActivity {
             recyclerView.setAdapter(adapter);
         }
         if(option.equals("save")){
-            currentProject = new Project("", "", new ArrayList<>(), 0);
+            currentProject = new Project("", "", new ArrayList<>(), 0, "");
 
             adapter = new TasksAdapter(currentProject.getTasks());
             recyclerView.setAdapter(adapter);
@@ -96,7 +96,7 @@ public class NewProjectActivity extends AppCompatActivity {
         String title = titleInputText.getText().toString();
         String description = descriptionInputText.getText().toString();
 
-        Project project = new Project(currentProject.getId(),title, description, adapter.getTasks(), 0);
+        Project project = new Project(currentProject.getId(),title, description, adapter.getTasks(), 0, currentProject.getStatus());
         projectDao.updateProject(project);
 
         Toast.makeText(NewProjectActivity.this, "Project saved.", Toast.LENGTH_SHORT).show();
@@ -112,7 +112,7 @@ public class NewProjectActivity extends AppCompatActivity {
             return;
         }
 
-        Project currentProject = new Project(title, description, adapter.getTasks(), 0);
+        Project currentProject = new Project(title, description, adapter.getTasks(), 0, "NEW");
         projectDao.addProject(currentProject);
 
         Toast.makeText(NewProjectActivity.this, "Project saved.", Toast.LENGTH_SHORT).show();

@@ -9,21 +9,24 @@ public class Project {
     private String description;
     private ArrayList<Task> tasks;
     private MutableLiveData<Integer> taskCount;
+    private String status;
 
-    public Project(String id, String title, String description, ArrayList<Task> tasks, Integer taskCount){
+    public Project(String id, String title, String description, ArrayList<Task> tasks, Integer taskCount, String status){
         this.id = id;
         this.title = title;
         this.description = description;
         this.tasks = tasks;
         this.taskCount = new MutableLiveData<>(taskCount);
+        this.status = status;
     }
 
-    public Project(String title, String description, ArrayList<Task> tasks, Integer taskCount){
+    public Project(String title, String description, ArrayList<Task> tasks, Integer taskCount, String status){
         this.id = "";
         this.title = title;
         this.description = description;
         this.tasks = tasks;
         this.taskCount = new MutableLiveData<>(taskCount);
+        this.status = status;
     }
 
     public String getId() { return id; }
@@ -37,8 +40,14 @@ public class Project {
         return tasks;
     }
     public MutableLiveData<Integer> getTaskCount(){ return taskCount; }
+    public String getStatus(){
+        return status;
+    }
 
     public void setId(String id){this.id = id;}
+    public void setStatus(String status){
+        this.status = status;
+    }
 
     public void updateTaskCount(){
         Integer taskCounter = 0;
