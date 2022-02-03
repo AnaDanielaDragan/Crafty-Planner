@@ -6,7 +6,7 @@
             app:startDestination="@+id/navigation_dashboard">
 
     <fragment
-            android:id="@+id/navigation_storage"
+            android:id="@+id/navigation_tasks"
             android:name="com.craftyplanner.ui.storage.StorageFragment"
             tools:layout="@layout/fragment_storage"/>
 
@@ -16,7 +16,7 @@
             tools:layout="@layout/fragment_dashboard"/>
 
     <fragment
-            android:id="@+id/navigation_more"
+            android:id="@+id/navigation_statistics"
             android:name="com.craftyplanner.ui.more.MoreFragment"
             tools:layout="@layout/fragment_more"/>
 </navigation>
