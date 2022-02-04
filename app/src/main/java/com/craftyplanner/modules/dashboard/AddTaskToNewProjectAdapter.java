@@ -13,24 +13,24 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder>{
+public class AddTaskToNewProjectAdapter extends RecyclerView.Adapter<AddTaskToNewProjectAdapter.ViewHolder>{
 
     private ArrayList<Task> tasks;
 
-    public TasksAdapter(ArrayList<Task> tasks){
+    public AddTaskToNewProjectAdapter(ArrayList<Task> tasks){
         this.tasks = tasks;
     }
 
     @NonNull
     @NotNull
     @Override
-    public TasksAdapter.ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
+    public AddTaskToNewProjectAdapter.ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.text_task_entry_new_project_activity, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull @NotNull TasksAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull @NotNull AddTaskToNewProjectAdapter.ViewHolder holder, int position) {
         Task currentTask = tasks.get(position);
 
         holder.text.setText(currentTask.getText());

@@ -5,10 +5,10 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.storage.StorageFragment">
+        tools:context=".ui.storage.TasksFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/id_recyclerView_storage"
+            android:id="@+id/id_recyclerView_tasks_fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintTop_toTopOf="parent"

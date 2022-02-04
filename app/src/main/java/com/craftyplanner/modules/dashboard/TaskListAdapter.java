@@ -15,13 +15,13 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewHolder>{
+public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHolder>{
 
     private Context context;
     private Project currentProject;
     private ProjectDao projectDao;
 
-    public ProjectAdapter(Context context, Project currentProject, ProjectDao projectDao){
+    public TaskListAdapter(Context context, Project currentProject, ProjectDao projectDao){
         this.context = context;
         this.currentProject = currentProject;
         this.projectDao = projectDao;
@@ -30,13 +30,13 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ViewHold
     @NonNull
     @NotNull
     @Override
-    public ProjectAdapter.ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
+    public TaskListAdapter.ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.checkbox_activity_project, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull @NotNull ProjectAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull @NotNull TaskListAdapter.ViewHolder holder, int position) {
         Task currentTask = currentProject.getTasks().get(position);
         String currentStatus = currentTask.getStatus();
         holder.task.setText(currentTask.getText());

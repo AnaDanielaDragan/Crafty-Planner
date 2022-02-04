@@ -23,7 +23,7 @@ public class NewProjectActivity extends AppCompatActivity {
     private EditText descriptionInputText;
     private EditText taskInputText;
     private RecyclerView recyclerView;
-    private TasksAdapter adapter;
+    private AddTaskToNewProjectAdapter adapter;
 
     private Button saveProjectButton;
     private Button addTaskButton;
@@ -58,13 +58,13 @@ public class NewProjectActivity extends AppCompatActivity {
 
             titleInputText.setText(currentProject.getTitle());
             descriptionInputText.setText(currentProject.getDescription());
-            adapter = new TasksAdapter(currentProject.getTasks());
+            adapter = new AddTaskToNewProjectAdapter(currentProject.getTasks());
             recyclerView.setAdapter(adapter);
         }
         if(option.equals("save")){
             currentProject = new Project("", "", new ArrayList<>(), 0, "");
 
-            adapter = new TasksAdapter(currentProject.getTasks());
+            adapter = new AddTaskToNewProjectAdapter(currentProject.getTasks());
             recyclerView.setAdapter(adapter);
         }
 
@@ -85,7 +85,7 @@ public class NewProjectActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                     currentProject.getTasks().add(new Task(taskInputText.getText().toString(), "UNCHECKED"));
-                    adapter = new TasksAdapter(currentProject.getTasks());
+                    adapter = new AddTaskToNewProjectAdapter(currentProject.getTasks());
                     recyclerView.setAdapter(adapter);
                     taskInputText.setText("");
             }

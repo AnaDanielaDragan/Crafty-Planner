@@ -7,8 +7,8 @@
 
     <fragment
             android:id="@+id/navigation_tasks"
-            android:name="com.craftyplanner.ui.storage.StorageFragment"
-            tools:layout="@layout/fragment_storage"/>
+            android:name="com.craftyplanner.ui.storage.TasksFragment"
+            tools:layout="@layout/fragment_tasks"/>
 
     <fragment
             android:id="@+id/navigation_dashboard"
