@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.ArrayMap;
 import com.craftyplanner.database.DBHandler;
 import com.craftyplanner.objects.Project;
+import com.craftyplanner.objects.Task;
 
 public class ProjectDaoImplSQLite implements ProjectDao{
 
@@ -21,6 +22,11 @@ public class ProjectDaoImplSQLite implements ProjectDao{
     @Override
     public Project getProject(String projectId) {
         return dbHandler.readProject(projectId);
+    }
+
+    @Override
+    public ArrayMap<String, Task> getTasks() {
+        return dbHandler.readTasks();
     }
 
     @Override

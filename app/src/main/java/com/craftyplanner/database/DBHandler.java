@@ -224,4 +224,26 @@ public class DBHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+    public ArrayMap<String, Task> readTasks() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursorProjects = db.rawQuery("SELECT * FROM " + TASKS_TABLE_NAME, null);
+
+        ArrayMap<String, Task> tasks = new ArrayMap<>();
+
+        if (cursorProjects.moveToFirst()) {
+            do {
+                //Read task values
+                String text = cursorProjects.getString(1);
+                String status = cursorProjects.getString(2);
+                String projectAssigned = cursorProjects.getString(3);
+
+                tasks.put(projectAssigned, new Task(text, status));
+            } while (cursorProjects.moveToNext());
+        }
+        cursorProjects.close();
+
+        db.close();
+
+        return tasks;
+    }
 }

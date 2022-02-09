@@ -42,23 +42,19 @@ public class StatisticsFragment extends Fragment {
 
     private void setProjectStatistics() {
         AtomicReference<Integer> newProjectCount = new AtomicReference<>(0);
-        projectDao.getProjects().forEach((s, project) -> {
-            if(project.getStatus().equals("NEW")){
-                newProjectCount.getAndSet(newProjectCount.get() + 1);
-            }
-        });
-
         AtomicReference<Integer> inProgressProjectCount = new AtomicReference<>(0);
-        projectDao.getProjects().forEach((s, project) -> {
-            if(project.getStatus().equals("IN_PROGRESS")){
-                inProgressProjectCount.getAndSet(inProgressProjectCount.get() + 1);
-            }
-        });
-
         AtomicReference<Integer> doneProjectCount = new AtomicReference<>(0);
         projectDao.getProjects().forEach((s, project) -> {
-            if(project.getStatus().equals("DONE")){
-                doneProjectCount.getAndSet(doneProjectCount.get() + 1);
+            switch (project.getStatus()) {
+                case "NEW":
+                    newProjectCount.getAndSet(newProjectCount.get() + 1);
+                    break;
+                case "IN_PROGRESS":
+                    inProgressProjectCount.getAndSet(inProgressProjectCount.get() + 1);
+                    break;
+                case "DONE":
+                    doneProjectCount.getAndSet(doneProjectCount.get() + 1);
+                    break;
             }
         });
 
@@ -77,5 +73,29 @@ public class StatisticsFragment extends Fragment {
     }
 
     private void setTasksStatistics() {
+        AtomicReference<Integer> checkedTasksCount = new AtomicReference<>(0);
+        AtomicReference<Integer> uncheckedTasksCount = new AtomicReference<>(0);
+
+        projectDao.getTasks().forEach((s, task) -> {
+            switch (task.getStatus()) {
+                case "CHECKED":
+                    checkedTasksCount.getAndSet(checkedTasksCount.get() + 1);
+                    break;
+                case "UNCHECKED":
+                    uncheckedTasksCount.getAndSet(uncheckedTasksCount.get() + 1);
+                    break;
+            }
+        });
+
+        Integer total = projectDao.getTasks().size();
+        Integer checkedTasksPercentage = (checkedTasksCount.get() * 100) / total;
+        Integer uncheckedTasksPercentage = (uncheckedTasksCount.get() * 100) / total;
+
+        // Set the data and color to the pie chart
+        taskPieChart.addPieSlice(new PieModel("Checked", checkedTasksPercentage, Color.parseColor("#F9A110")));
+        taskPieChart.addPieSlice(new PieModel("Not checked", uncheckedTasksPercentage, Color.parseColor("#808080")));
+
+        // To animate the pie chart
+        taskPieChart.startAnimation();
     }
 }
