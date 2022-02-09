@@ -41,10 +41,10 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
         holder.projectDescription.setText(project.getDescription());
         holder.projectStatus.setText(project.getStatus());
         if(project.getStatus().equals("NEW")){
-            holder.projectStatus.setBackgroundColor(Color.GREEN);
+            holder.projectStatus.setBackgroundColor(Color.parseColor("#75E401"));
         }
         if(project.getStatus().equals("IN_PROGRESS")){
-            holder.projectStatus.setBackgroundColor(Color.YELLOW);
+            holder.projectStatus.setBackgroundColor(Color.parseColor("#F9A110"));
             holder.projectStatus.setText("IN PROGRESS");
         }
         if(project.getStatus().equals("DONE")){
