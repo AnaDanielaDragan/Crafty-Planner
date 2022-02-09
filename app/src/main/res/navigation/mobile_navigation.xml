@@ -17,6 +17,6 @@
 
     <fragment
             android:id="@+id/navigation_statistics"
-            android:name="com.craftyplanner.ui.more.MoreFragment"
-            tools:layout="@layout/fragment_more"/>
+            android:name="com.craftyplanner.ui.more.StatisticsFragment"
+            tools:layout="@layout/fragment_statistics"/>
 </navigation>
