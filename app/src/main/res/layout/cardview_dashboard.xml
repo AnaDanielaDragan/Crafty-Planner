@@ -4,7 +4,7 @@
 <androidx.cardview.widget.CardView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
+        xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         app:cardBackgroundColor="@color/light_pink"
@@ -13,35 +13,65 @@
         app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="true">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-        <TextView
-                android:id="@+id/id_cardview_projectTitle"
-                android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:textSize="25sp"
-                android:gravity="start"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/id_cardview_projectDescription"
-        />
+                android:layout_alignParentRight="true">
 
-        <TextView
-                android:id="@+id/id_cardview_projectDescription"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/gray"
-                android:textSize="20sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/id_cardview_projectTitle"
-                app:layout_constraintBottom_toBottomOf="parent"
-        />
+            <TextView
+                    android:id="@+id/id_cardview_projectTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="25sp"
+                    android:gravity="start"
+                    android:text="title"
+                    app:layout_constraintLeft_toRightOf="@+id/id_project_image"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/id_cardview_projectDescription"
+                    app:layout_constraintHorizontal_bias="0.052"/>
+            <TextView
+                    android:id="@+id/id_cardview_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toRightOf="@+id/id_cardview_projectTitle"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/id_cardview_projectDescription"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:text="status"
+                    android:textAllCaps="true"
+                    app:layout_constraintHorizontal_bias="0.92"
+                    app:layout_constraintVertical_bias="0.281"
+            />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                    android:id="@+id/id_cardview_projectDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/gray"
+                    android:textSize="20sp"
+                    android:text="description"
+                    app:layout_constraintLeft_toRightOf="@id/id_project_image"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/id_cardview_projectTitle"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_bias="0.067"/>
+            <ImageView
+                    android:id="@+id/id_project_image"
+                    android:layout_width="83dp"
+                    android:layout_height="86dp"
+                    android:src="@drawable/project_image"
+                    tools:layout_editor_absoluteY="0dp"
+                    tools:layout_editor_absoluteX="4dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </RelativeLayout>
 </androidx.cardview.widget.CardView>
