@@ -24,10 +24,10 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
     private ArrayMap<String, Project> projects;
     private ProjectDao projectDao;
 
-    public TasksAdapter(Context context, CustomApplication application){
+    public TasksAdapter(Context context, CustomApplication application, ArrayMap<String, Project> filteredProjects){
         this.context = context;
         this.projectDao = application.getProjectDao();
-        this.projects = projectDao.getProjects();
+        this.projects = filteredProjects;
     }
 
     @NonNull

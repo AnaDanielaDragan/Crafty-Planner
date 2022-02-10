@@ -93,7 +93,6 @@ public class DashboardFragment extends Fragment {
                 filteredProjects.put(id, project);
             }
         });
-        //
         adapter = new DashboardAdapter(view.getContext(), filteredProjects);
         recyclerView.setAdapter(adapter);
     }
