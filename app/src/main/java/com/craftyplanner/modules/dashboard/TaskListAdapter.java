@@ -39,33 +39,34 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHo
     public void onBindViewHolder(@NonNull @NotNull TaskListAdapter.ViewHolder holder, int position) {
         Task currentTask = currentProject.getTasks().get(position);
         String currentStatus = currentTask.getStatus();
-        holder.task.setText(currentTask.getText());
-        holder.task.setChecked(currentStatus.equals("CHECKED"));
 
-        //Count checked tasks (x/y)
-        holder.task.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(holder.task.isChecked()){
-                    currentTask.setStatus("CHECKED");
+            holder.task.setText(currentTask.getText());
+            holder.task.setChecked(currentStatus.equals("CHECKED"));
+
+            //Count checked tasks (x/y)
+            holder.task.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(holder.task.isChecked()){
+                        currentTask.setStatus("CHECKED");
+                    }
+                    else{
+                        currentTask.setStatus("UNCHECKED");
+                    }
+                    currentProject.updateTaskCount();
+
+                    if(Objects.equals(currentProject.getTaskCount().getValue(), currentProject.getTasks().size())){
+                        currentProject.setStatus("DONE");
+                    }
+                    else if(Objects.equals(currentProject.getTaskCount().getValue(), 0)){
+                        currentProject.setStatus("NEW");
+                    }
+                    else{
+                        currentProject.setStatus("IN_PROGRESS");
+                    }
+                    projectDao.updateProject(currentProject);
                 }
-                else{
-                    currentTask.setStatus("UNCHECKED");
-                }
-                currentProject.updateTaskCount();
-                //TODO: update status
-                if(Objects.equals(currentProject.getTaskCount().getValue(), currentProject.getTasks().size())){
-                    currentProject.setStatus("DONE");
-                }
-                else if(Objects.equals(currentProject.getTaskCount().getValue(), 0)){
-                    currentProject.setStatus("NEW");
-                }
-                else{
-                    currentProject.setStatus("IN_PROGRESS");
-                }
-                projectDao.updateProject(currentProject);
-            }
-        });
+            });
     }
 
     @Override
@@ -80,7 +81,6 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHo
         public ViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
             task = itemView.findViewById(R.id.checkbox_task);
-            //TODO: move task to end of the list when checked
         }
     }
 }

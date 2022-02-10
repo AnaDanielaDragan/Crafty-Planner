@@ -127,7 +127,7 @@ public class ProjectActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.id_recyclerView_project);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        recyclerView.setAdapter(new TaskListAdapter(this, currentProject, projectDao, "ALL"));
+        recyclerView.setAdapter(new TaskListAdapter(this, currentProject, projectDao));
     }
 
     //Live update the task count

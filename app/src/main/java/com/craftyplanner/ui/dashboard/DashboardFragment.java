@@ -6,6 +6,9 @@ import android.util.ArrayMap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,11 +25,13 @@ public class DashboardFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private FloatingActionButton addNewProjectButton;
+    private Spinner selectStatusSpinner;
 
     private ProjectDao projectDao;
     private DashboardAdapter adapter;
     private CustomApplication application;
     private View view;
+    private String projectStatus = "ALL";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -49,6 +54,25 @@ public class DashboardFragment extends Fragment {
             }
         });
 
+        selectStatusSpinner = view.findViewById(R.id.id_spinner_status);
+        String [] statusList = {"ALL","NEW","IN_PROGRESS","DONE"};
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<> (getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, statusList);
+        selectStatusSpinner.setAdapter(arrayAdapter);
+
+        selectStatusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                projectStatus = parent.getItemAtPosition(position).toString();
+                setRecyclerViewAdapter();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                //do nothing
+            }
+        });
+
         return view;
     }
 
@@ -60,7 +84,17 @@ public class DashboardFragment extends Fragment {
 
     private void setRecyclerViewAdapter() {
         projectDao = application.getProjectDao();
-        adapter = new DashboardAdapter(view.getContext(), projectDao.getProjects());
+        ArrayMap<String, Project> filteredProjects = new ArrayMap<>();
+        projectDao.getProjects().forEach((id, project) -> {
+            if(project.getStatus().equals(projectStatus)){
+                filteredProjects.put(id, project);
+            }
+            else if(projectStatus.equals("ALL")){
+                filteredProjects.put(id, project);
+            }
+        });
+        //
+        adapter = new DashboardAdapter(view.getContext(), filteredProjects);
         recyclerView.setAdapter(adapter);
     }
 }
