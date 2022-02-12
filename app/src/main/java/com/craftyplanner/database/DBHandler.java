@@ -114,6 +114,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
         db.close();
 
+        assert id != null;
         return id.toString();
     }
     public Project readProject(String projectID){
@@ -226,21 +227,21 @@ public class DBHandler extends SQLiteOpenHelper {
 
     public ArrayMap<String, Task> readTasks() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursorProjects = db.rawQuery("SELECT * FROM " + TASKS_TABLE_NAME, null);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TASKS_TABLE_NAME, null);
 
         ArrayMap<String, Task> tasks = new ArrayMap<>();
 
-        if (cursorProjects.moveToFirst()) {
+        if (cursor.moveToFirst()) {
             do {
                 //Read task values
-                String text = cursorProjects.getString(1);
-                String status = cursorProjects.getString(2);
-                String projectAssigned = cursorProjects.getString(3);
+                String text = cursor.getString(1);
+                String status = cursor.getString(2);
+                String projectAssigned = cursor.getString(3);
 
                 tasks.put(projectAssigned, new Task(text, status));
-            } while (cursorProjects.moveToNext());
+            } while (cursor.moveToNext());
         }
-        cursorProjects.close();
+        cursor.close();
 
         db.close();
 

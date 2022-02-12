@@ -1,4 +1,4 @@
-package com.craftyplanner.ui.more;
+package com.craftyplanner.ui.statistics;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -28,7 +28,7 @@ public class StatisticsFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_statistics, container, false);
 
-        CustomApplication application = (CustomApplication) getActivity().getApplication();
+        CustomApplication application = (CustomApplication) requireActivity().getApplication();
         projectDao = application.getProjectDao();
 
         projectPieChart = view.findViewById(R.id.pie_chart_project_status);

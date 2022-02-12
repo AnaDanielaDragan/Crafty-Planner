@@ -8,7 +8,7 @@ import com.craftyplanner.objects.Task;
 
 public class ProjectDaoImplSQLite implements ProjectDao{
 
-    private DBHandler dbHandler;
+    private final DBHandler dbHandler;
 
     public ProjectDaoImplSQLite(Context context){
         dbHandler = new DBHandler(context);

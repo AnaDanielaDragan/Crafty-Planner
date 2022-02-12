@@ -8,15 +8,14 @@ import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.widget.Toast;
 
-import java.io.File;
 import java.util.List;
 
 import static androidx.core.content.ContextCompat.startActivity;
 
 public class BluetoothHandler {
 
+    private final Context context;
     private BluetoothAdapter bluetoothAdapter;
-    private Context context;
 
     public BluetoothHandler(Context context){
         this.context = context;
@@ -51,23 +50,6 @@ public class BluetoothHandler {
                 startActivity(context, intent, null);
             }
         }
-    }
-
-    public void selectAppToSendFile(File projectFile) {
-        Intent intent = new Intent();
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        intent.setAction(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(projectFile));
-        startActivity(context, intent, null);
-    }
-
-    public void openBluetoothSettings(Context context) {
-        Intent intentOpenBluetoothSettings = new Intent();
-        intentOpenBluetoothSettings.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intentOpenBluetoothSettings.setAction(android.provider.Settings.ACTION_BLUETOOTH_SETTINGS);
-        startActivity(context, intentOpenBluetoothSettings, null);
     }
 
     public void enableBluetooth() {

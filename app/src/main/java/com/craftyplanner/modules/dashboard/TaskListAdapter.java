@@ -1,6 +1,5 @@
 package com.craftyplanner.modules.dashboard;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +16,10 @@ import java.util.Objects;
 
 public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHolder>{
 
-    private Context context;
-    private Project currentProject;
-    private ProjectDao projectDao;
+    private final Project currentProject;
+    private final ProjectDao projectDao;
 
-    public TaskListAdapter(Context context, Project currentProject, ProjectDao projectDao){
-        this.context = context;
+    public TaskListAdapter(Project currentProject, ProjectDao projectDao){
         this.currentProject = currentProject;
         this.projectDao = projectDao;
     }
@@ -31,7 +28,7 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHo
     @NotNull
     @Override
     public TaskListAdapter.ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.checkbox_activity_project, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.checkbox_task, parent, false);
         return new ViewHolder(view);
     }
 
@@ -44,28 +41,25 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHo
             holder.task.setChecked(currentStatus.equals("CHECKED"));
 
             //Count checked tasks (x/y)
-            holder.task.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(holder.task.isChecked()){
-                        currentTask.setStatus("CHECKED");
-                    }
-                    else{
-                        currentTask.setStatus("UNCHECKED");
-                    }
-                    currentProject.updateTaskCount();
-
-                    if(Objects.equals(currentProject.getTaskCount().getValue(), currentProject.getTasks().size())){
-                        currentProject.setStatus("DONE");
-                    }
-                    else if(Objects.equals(currentProject.getTaskCount().getValue(), 0)){
-                        currentProject.setStatus("NEW");
-                    }
-                    else{
-                        currentProject.setStatus("IN_PROGRESS");
-                    }
-                    projectDao.updateProject(currentProject);
+            holder.task.setOnClickListener(v -> {
+                if(holder.task.isChecked()){
+                    currentTask.setStatus("CHECKED");
                 }
+                else{
+                    currentTask.setStatus("UNCHECKED");
+                }
+                currentProject.updateTaskCount();
+
+                if(Objects.equals(currentProject.getTaskCount().getValue(), currentProject.getTasks().size())){
+                    currentProject.setStatus("DONE");
+                }
+                else if(Objects.equals(currentProject.getTaskCount().getValue(), 0)){
+                    currentProject.setStatus("NEW");
+                }
+                else{
+                    currentProject.setStatus("IN_PROGRESS");
+                }
+                projectDao.updateProject(currentProject);
             });
     }
 
@@ -74,9 +68,9 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHo
         return currentProject.getTasks().size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        private CheckBox task;
+        private final CheckBox task;
 
         public ViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);

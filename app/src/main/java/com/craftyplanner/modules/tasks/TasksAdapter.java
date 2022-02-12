@@ -1,5 +1,6 @@
 package com.craftyplanner.modules.tasks;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.ArrayMap;
 import android.view.LayoutInflater;
@@ -18,11 +19,9 @@ import org.jetbrains.annotations.NotNull;
 
 public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> {
 
-    //TODO: this class displays a list of projectSortedTasksCard (name, count, divider, task ckeckbox list)
-
-    private Context context;
-    private ArrayMap<String, Project> projects;
-    private ProjectDao projectDao;
+    private final Context context;
+    private final ArrayMap<String, Project> projects;
+    private final ProjectDao projectDao;
 
     public TasksAdapter(Context context, CustomApplication application, ArrayMap<String, Project> filteredProjects){
         this.context = context;
@@ -39,6 +38,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
         return new ViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull @NotNull TasksAdapter.ViewHolder holder, int position) {
         // Set data for the elements of each cardView
@@ -46,7 +46,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
         holder.projectName.setText(project.getTitle());
         holder.projectTaskCount.setText(project.getTaskCount().getValue() + "/" + project.getTasks().size());
         holder.projectTaskListRecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-        holder.projectTaskListRecyclerView.setAdapter(new TaskListAdapter(context, project, projectDao));
+        holder.projectTaskListRecyclerView.setAdapter(new TaskListAdapter(project, projectDao));
     }
 
     @Override
@@ -55,11 +55,11 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
         return projects.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         // Initializes the view elements of the cardView
-        private TextView projectName;
-        private TextView projectTaskCount;
-        private RecyclerView projectTaskListRecyclerView;
+        private final TextView projectName;
+        private final TextView projectTaskCount;
+        private final RecyclerView projectTaskListRecyclerView;
 
         public ViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);

@@ -12,7 +12,7 @@
             android:id="@+id/id_project_image"
             android:layout_width="399dp"
             android:layout_height="183dp"
-            android:src="@drawable/project_image_cover"
+            android:src="@drawable/project_cover_image"
             android:layout_alignParentStart="true"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"

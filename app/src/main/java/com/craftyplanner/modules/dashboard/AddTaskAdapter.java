@@ -13,34 +13,31 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-public class AddTaskToNewProjectAdapter extends RecyclerView.Adapter<AddTaskToNewProjectAdapter.ViewHolder>{
+public class AddTaskAdapter extends RecyclerView.Adapter<AddTaskAdapter.ViewHolder>{
 
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
-    public AddTaskToNewProjectAdapter(ArrayList<Task> tasks){
+    public AddTaskAdapter(ArrayList<Task> tasks){
         this.tasks = tasks;
     }
 
     @NonNull
     @NotNull
     @Override
-    public AddTaskToNewProjectAdapter.ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.text_task_entry_new_project_activity, parent, false);
+    public AddTaskAdapter.ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_task_entry, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull @NotNull AddTaskToNewProjectAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull @NotNull AddTaskAdapter.ViewHolder holder, int position) {
         Task currentTask = tasks.get(position);
 
         holder.text.setText(currentTask.getText());
-        holder.deleteButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                tasks.remove(currentTask);
-                notifyItemRemoved(holder.getAdapterPosition());
-                notifyItemRangeChanged(holder.getAdapterPosition(), tasks.size());
-            }
+        holder.deleteButton.setOnClickListener(v -> {
+            tasks.remove(currentTask);
+            notifyItemRemoved(holder.getAdapterPosition());
+            notifyItemRangeChanged(holder.getAdapterPosition(), tasks.size());
         });
     }
 
@@ -49,10 +46,10 @@ public class AddTaskToNewProjectAdapter extends RecyclerView.Adapter<AddTaskToNe
         return tasks.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView text;
-        private Button deleteButton;
+        private final TextView text;
+        private final Button deleteButton;
 
         public ViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);

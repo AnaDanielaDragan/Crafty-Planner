@@ -1,4 +1,4 @@
-package com.craftyplanner.ui.storage;
+package com.craftyplanner.ui.tasks;
 
 import android.os.Bundle;
 import android.util.ArrayMap;
@@ -13,19 +13,20 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.craftyplanner.CustomApplication;
-import com.craftyplanner.R;;
+import com.craftyplanner.R;
 import com.craftyplanner.dao.ProjectDao;
 import com.craftyplanner.modules.tasks.TasksAdapter;
 import com.craftyplanner.objects.Project;
 
 public class TasksFragment extends Fragment {
 
+    private View view;
+
     private RecyclerView recyclerView;
     private Spinner selectedProjects;
+
     private ProjectDao projectDao;
     private CustomApplication application;
-
-    private View view;
     private String projectStatus = "ALL";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -33,15 +34,24 @@ public class TasksFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_tasks, container, false);
 
-        application = (CustomApplication) getActivity().getApplication();
+        application = (CustomApplication) requireActivity().getApplication();
         projectDao = application.getProjectDao();
 
-        selectedProjects = view.findViewById(R.id.id_spinner_projects_selected);
-        ArrayMap<String, Project> filteredProjects = new ArrayMap<>();
-        String [] statusList = {"ALL","IN_PROGRESS"};
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<> (getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, statusList);
-        selectedProjects.setAdapter(arrayAdapter);
+        initializeFilterSpinner();
+        initializeTaskListRecyclerView();
 
+        return view;
+    }
+
+    private void initializeTaskListRecyclerView() {
+        recyclerView = view.findViewById(R.id.id_recyclerView_tasks_fragment);
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false));
+        setRecyclerViewAdapter();
+    }
+
+    private void initializeFilterSpinner() {
+        selectedProjects = view.findViewById(R.id.id_spinner_projects_selected);
+        setArrayAdapter();
         selectedProjects.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
 
             @Override
@@ -55,12 +65,12 @@ public class TasksFragment extends Fragment {
                 //do nothing
             }
         });
+    }
 
-        recyclerView = view.findViewById(R.id.id_recyclerView_tasks_fragment);
-        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false));
-        setRecyclerViewAdapter();
-
-        return view;
+    private void setArrayAdapter() {
+        String [] statusList = {"ALL","IN_PROGRESS"};
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<> (requireActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, statusList);
+        selectedProjects.setAdapter(arrayAdapter);
     }
 
     private void setRecyclerViewAdapter(){
