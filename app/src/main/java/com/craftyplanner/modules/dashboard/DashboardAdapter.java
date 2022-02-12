@@ -2,6 +2,7 @@ package com.craftyplanner.modules.dashboard;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.util.ArrayMap;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +39,17 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
         Project project = projectArrayMap.valueAt(position);
         holder.projectTitle.setText(project.getTitle());
         holder.projectDescription.setText(project.getDescription());
+        holder.projectStatus.setText(project.getStatus());
+        if(project.getStatus().equals("NEW")){
+            holder.projectStatus.setBackgroundColor(Color.parseColor("#75E401"));
+        }
+        if(project.getStatus().equals("IN_PROGRESS")){
+            holder.projectStatus.setBackgroundColor(Color.parseColor("#F9A110"));
+            holder.projectStatus.setText("IN PROGRESS");
+        }
+        if(project.getStatus().equals("DONE")){
+            holder.projectStatus.setBackgroundColor(Color.RED);
+        }
         holder.projectId = project.getId();
     }
 
@@ -51,12 +63,14 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
         // Initializes the view elements of the cardView
         private TextView projectTitle;
         private TextView projectDescription;
+        private TextView projectStatus;
         private String projectId;
 
         public ViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
             projectTitle = itemView.findViewById(R.id.id_cardview_projectTitle);
             projectDescription = itemView.findViewById(R.id.id_cardview_projectDescription);
+            projectStatus = itemView.findViewById(R.id.id_cardview_status);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

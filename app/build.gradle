@@ -48,6 +48,10 @@ dependencies {
     implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
     implementation 'com.google.code.gson:gson:2.8.4'
 
+    // Chart and graph library
+    implementation 'com.github.blackfizz:eazegraph:1.2.5l@aar'
+    implementation 'com.nineoldandroids:library:2.4.0'
+
     configurations.all {
         resolutionStrategy.dependencySubstitution {
             substitute module('org.hamcrest:hamcrest-core:1.1') with module('junit:junit:4.10')

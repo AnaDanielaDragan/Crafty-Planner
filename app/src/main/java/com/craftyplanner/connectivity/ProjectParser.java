@@ -11,13 +11,13 @@ public class ProjectParser {
 
     /*
     String structure:
-        projectTitle;projectDescription;task1,task2,...
+        projectTitle;projectDescription;projectStatus;task1,task2,...
      */
 
     public static String parseProjectToString(Project project){
         AtomicReference<String> projectContent = new AtomicReference<>("");
 
-        projectContent.set(projectContent + project.getTitle() + ";" + project.getDescription() + ";");
+        projectContent.set(projectContent + project.getTitle() + ";" + project.getDescription() + ";" + project.getStatus() + ";");
         project.getTasks().forEach(task -> {
             projectContent.set(projectContent + task.getText() + ",");
         });
@@ -27,17 +27,17 @@ public class ProjectParser {
 
     public static Project parseStringToProject(String string){
 
-        //TODO: test to see if created correctly
         String[] stringContent = string.split(";");
         String title = stringContent[0];
         String description = stringContent[1];
-        String[] tasksContent = stringContent[2].split(",");
+        String status = stringContent[2];
+        String[] tasksContent = stringContent[3].split(",");
 
         ArrayList<Task> tasks = new ArrayList<>();
         Arrays.stream(tasksContent).forEach(task -> {
             tasks.add(new Task(task, "UNCHECKED"));
         });
 
-        return new Project(title, description, tasks, 0);
+        return new Project(title, description, tasks, 0, status);
     }
 }

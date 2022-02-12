@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class DBHandler extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "PROJECTS.DB";
-    private static final int DB_VERSION = 4;
+    private static final int DB_VERSION = 7;
 
     //Projects table
     private static final String PROJECTS_TABLE_NAME = "PROJECTS";
@@ -22,24 +22,26 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String TITLE_COL = "title";
     private static final String DESCRIPTION_COL = "description";
     private static final String TASK_COUNT_COL = "taskCount";
+    private static final String PROJECT_STATUS_COL = "status";
 
     private static final String CREATE_DB_QUERY_PROJECTS = "CREATE TABLE " + PROJECTS_TABLE_NAME + " ( "
             + ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + TITLE_COL + " TEXT, "
             + DESCRIPTION_COL + " TEXT, "
-            + TASK_COUNT_COL + " INTEGER)";
+            + TASK_COUNT_COL + " INTEGER, "
+            + PROJECT_STATUS_COL + " TEXT)";
 
     //Tasks table
     private static final String TASKS_TABLE_NAME = "TASKS";
     private static final String TEXT_COL = "text";
-    private static final String STATUS_COL = "status";
+    private static final String TASK_STATUS_COL = "status";
     private static final String PROJECT_ASSIGNED_COL = "project";
 
 
     private static final String CREATE_DB_QUERY_TASKS = "CREATE TABLE " + TASKS_TABLE_NAME + " ( "
             + ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + TEXT_COL + " TEXT, "
-            + STATUS_COL + " TEXT, "
+            + TASK_STATUS_COL + " TEXT, "
             + PROJECT_ASSIGNED_COL + " INTEGER)";
 
     public DBHandler(Context context) {
@@ -72,7 +74,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
         newProject.getTasks().forEach(task -> {
             valuesTasks.put(TEXT_COL, task.getText());
-            valuesTasks.put(STATUS_COL, task.getStatus());
+            valuesTasks.put(TASK_STATUS_COL, task.getStatus());
             valuesTasks.put(PROJECT_ASSIGNED_COL, newProject.getId());
 
             db1.insert(TASKS_TABLE_NAME, null, valuesTasks);
@@ -90,6 +92,7 @@ public class DBHandler extends SQLiteOpenHelper {
         values.put(TITLE_COL, newProject.getTitle());
         values.put(DESCRIPTION_COL, newProject.getDescription());
         values.put(TASK_COUNT_COL, 0);
+        values.put(PROJECT_STATUS_COL, newProject.getStatus());
 
         db.insert(PROJECTS_TABLE_NAME, null, values);
 
@@ -123,6 +126,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 String title = cursor.getString(1);
                 String description = cursor.getString(2);
                 Integer taskCount = cursor.getInt(3);
+                String projectStatus = cursor.getString(4);
 
                 ArrayList<Task> taskList = new ArrayList<>();
 
@@ -137,7 +141,7 @@ public class DBHandler extends SQLiteOpenHelper {
                     } while (cursorTasks.moveToNext());
                 }
                 cursorTasks.close();
-                project = new Project(projectID, title, description, taskList, taskCount);
+                project = new Project(projectID, title, description, taskList, taskCount, projectStatus);
             } while (cursor.moveToNext());
         }
 
@@ -160,6 +164,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 String title = cursorProjects.getString(1);
                 String description = cursorProjects.getString(2);
                 Integer taskCount = cursorProjects.getInt(3);
+                String projectStatus = cursorProjects.getString(4);
 
                 ArrayList<Task> taskList = new ArrayList<>();
 
@@ -175,7 +180,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 }
                 cursorTasks.close();
 
-                projects.put(id, new Project(id, title, description, taskList, taskCount));
+                projects.put(id, new Project(id, title, description, taskList, taskCount, projectStatus));
             } while (cursorProjects.moveToNext());
         }
         cursorProjects.close();
@@ -192,6 +197,7 @@ public class DBHandler extends SQLiteOpenHelper {
         values.put(TITLE_COL, project.getTitle());
         values.put(DESCRIPTION_COL, project.getDescription());
         values.put(TASK_COUNT_COL, project.getTaskCount().getValue());
+        values.put(PROJECT_STATUS_COL, project.getStatus());
 
         db.update(PROJECTS_TABLE_NAME, values, "ID=?", new String[]{project.getId()});
 
@@ -201,7 +207,7 @@ public class DBHandler extends SQLiteOpenHelper {
         ContentValues valuesTasks = new ContentValues();
         project.getTasks().forEach(task -> {
             valuesTasks.put(TEXT_COL, task.getText());
-            valuesTasks.put(STATUS_COL, task.getStatus());
+            valuesTasks.put(TASK_STATUS_COL, task.getStatus());
             valuesTasks.put(PROJECT_ASSIGNED_COL, project.getId());
             db.insert(TASKS_TABLE_NAME, null, valuesTasks);
             valuesTasks.clear();
@@ -218,4 +224,26 @@ public class DBHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+    public ArrayMap<String, Task> readTasks() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursorProjects = db.rawQuery("SELECT * FROM " + TASKS_TABLE_NAME, null);
+
+        ArrayMap<String, Task> tasks = new ArrayMap<>();
+
+        if (cursorProjects.moveToFirst()) {
+            do {
+                //Read task values
+                String text = cursorProjects.getString(1);
+                String status = cursorProjects.getString(2);
+                String projectAssigned = cursorProjects.getString(3);
+
+                tasks.put(projectAssigned, new Task(text, status));
+            } while (cursorProjects.moveToNext());
+        }
+        cursorProjects.close();
+
+        db.close();
+
+        return tasks;
+    }
 }

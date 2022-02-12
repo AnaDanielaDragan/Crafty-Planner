@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity"
+        android:orientation="vertical">
+
+    <!-- Card view for displaying project status statistics-->
+    <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewProjectStatus"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="40dp"
+            android:elevation="10dp"
+            app:cardCornerRadius="10dp"
+            android:layout_alignParentStart="true">
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Project statistics"
+                android:textStyle="bold"
+                android:textSize="25sp"
+                android:gravity="start"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"/>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+            <!--Pie chart to display the project data-->
+            <org.eazegraph.lib.charts.PieChart
+                    android:id="@+id/pie_chart_project_status"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:padding="6dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginBottom="15dp"
+
+            />
+
+            <!--Creating another linear layout to display labels-->
+            <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginStart="20dp"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical"
+            >
+
+                <!--Linear layout to display NEW status-->
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="15dp"
+                        android:layout_gravity="center_vertical">
+
+                    <View
+                            android:layout_width="15dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/apple_green"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="New"
+                            android:paddingLeft="10dp"/>
+
+                </LinearLayout>
+
+                <!--Linear layout to display IN PROGRESS status-->
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="15dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="5dp">
+
+                    <View
+                            android:layout_width="15dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/mustard_yellow"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="In progress"
+                            android:paddingLeft="10dp"/>
+
+                </LinearLayout>
+
+                <!--Linear layout to display DONE status-->
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="15dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="5dp">
+
+                    <View
+                            android:layout_width="15dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/dark_burgundy"/>
+
+                    <!--Text view to display C++ text -->
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Done"
+                            android:paddingLeft="10dp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- Card view for displaying tasks status statistics-->
+    <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewTasksStatus"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="380dp"
+            android:elevation="10dp"
+            app:cardCornerRadius="10dp">
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Task statistics"
+                android:textStyle="bold"
+                android:textSize="25sp"
+                android:gravity="start"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"/>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+            <!--Pie chart to display the tasks data-->
+            <org.eazegraph.lib.charts.PieChart
+                    android:id="@+id/pie_chart_tasks_status"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:padding="6dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginBottom="15dp"
+
+            />
+
+            <!--Creating another linear layout to display labels-->
+            <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginStart="20dp"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical"
+            >
+
+                <!--Linear layout to display CHECKED status-->
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="15dp"
+                        android:layout_gravity="center_vertical">
+
+                    <View
+                            android:layout_width="15dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/mustard_yellow"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Checked"
+                            android:paddingLeft="10dp"/>
+
+                </LinearLayout>
+
+                <!--Linear layout to display UNCHECKED status-->
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="15dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="5dp">
+
+                    <View
+                            android:layout_width="15dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/gray"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Unchecked"
+                            android:paddingLeft="10dp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>
