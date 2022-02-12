@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class ProjectParser {
+public class ProjectContentParser {
 
     /*
     String structure:

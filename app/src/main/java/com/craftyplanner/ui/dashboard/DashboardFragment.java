@@ -22,7 +22,9 @@ import com.craftyplanner.objects.Project;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class DashboardFragment extends Fragment {
-
+    
+    private View view;
+    
     private RecyclerView recyclerView;
     private FloatingActionButton addNewProjectButton;
     private Spinner selectStatusSpinner;
@@ -30,7 +32,6 @@ public class DashboardFragment extends Fragment {
     private ProjectDao projectDao;
     private DashboardAdapter adapter;
     private CustomApplication application;
-    private View view;
     private String projectStatus = "ALL";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -40,24 +41,22 @@ public class DashboardFragment extends Fragment {
 
         application = (CustomApplication) getActivity().getApplication();
 
-        recyclerView = view.findViewById(R.id.id_recyclerView_dashboard);
-        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false));
+        initializeFilterSpinner();
+        initializeProjectListRecyclerView();
+        initializeAddProjectButton();
+
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         setRecyclerViewAdapter();
+    }
 
-        addNewProjectButton = view.findViewById(R.id.id_button_new_project);
-        addNewProjectButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent  = new Intent(view.getContext(), NewProjectActivity.class);
-                intent.putExtra("Option", "save");
-                view.getContext().startActivity(intent);
-            }
-        });
-
+    private void initializeFilterSpinner() {
         selectStatusSpinner = view.findViewById(R.id.id_spinner_status);
-        String [] statusList = {"ALL","NEW","IN_PROGRESS","DONE"};
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<> (getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, statusList);
-        selectStatusSpinner.setAdapter(arrayAdapter);
+        setSpinnerAdapter();
 
         selectStatusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
 
@@ -72,14 +71,24 @@ public class DashboardFragment extends Fragment {
                 //do nothing
             }
         });
-
-        return view;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
+    private void initializeProjectListRecyclerView() {
+        recyclerView = view.findViewById(R.id.id_recyclerView_dashboard);
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false));
         setRecyclerViewAdapter();
+    }
+
+    private void initializeAddProjectButton() {
+        addNewProjectButton = view.findViewById(R.id.id_button_new_project);
+        addNewProjectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent  = new Intent(view.getContext(), NewProjectActivity.class);
+                intent.putExtra("Option", "save");
+                view.getContext().startActivity(intent);
+            }
+        });
     }
 
     private void setRecyclerViewAdapter() {
@@ -95,5 +104,11 @@ public class DashboardFragment extends Fragment {
         });
         adapter = new DashboardAdapter(view.getContext(), filteredProjects);
         recyclerView.setAdapter(adapter);
+    }
+
+    private void setSpinnerAdapter() {
+        String [] statusList = {"ALL","NEW","IN_PROGRESS","DONE"};
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<> (getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, statusList);
+        selectStatusSpinner.setAdapter(arrayAdapter);
     }
 }

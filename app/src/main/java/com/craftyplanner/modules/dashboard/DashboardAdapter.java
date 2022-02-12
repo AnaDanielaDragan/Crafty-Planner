@@ -17,11 +17,11 @@ import org.jetbrains.annotations.NotNull;
 public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.ViewHolder> {
 
     private Context context;
-    private ArrayMap<String, Project> projectArrayMap;
+    private ArrayMap<String, Project> projects;
 
-    public DashboardAdapter(Context context, ArrayMap<String, Project> projectArrayMap){
+    public DashboardAdapter(Context context, ArrayMap<String, Project> projects){
         this.context = context;
-        this.projectArrayMap = projectArrayMap;
+        this.projects = projects;
     }
 
     @NonNull
@@ -36,10 +36,12 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
     @Override
     public void onBindViewHolder(@NonNull @NotNull DashboardAdapter.ViewHolder holder, int position) {
         // Set data for the elements of each cardView
-        Project project = projectArrayMap.valueAt(position);
+        Project project = projects.valueAt(position);
+        holder.projectId = project.getId();
         holder.projectTitle.setText(project.getTitle());
         holder.projectDescription.setText(project.getDescription());
         holder.projectStatus.setText(project.getStatus());
+
         if(project.getStatus().equals("NEW")){
             holder.projectStatus.setBackgroundColor(Color.parseColor("#75E401"));
         }
@@ -50,21 +52,21 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
         if(project.getStatus().equals("DONE")){
             holder.projectStatus.setBackgroundColor(Color.RED);
         }
-        holder.projectId = project.getId();
+
     }
 
     @Override
     public int getItemCount() {
         // Shows the number of card items in the recyclerView
-        return projectArrayMap.size();
+        return projects.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         // Initializes the view elements of the cardView
+        private String projectId;
         private TextView projectTitle;
         private TextView projectDescription;
         private TextView projectStatus;
-        private String projectId;
 
         public ViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);

@@ -56,7 +56,7 @@
                 android:id="@+id/add_task_button"
                 android:layout_width="44dp"
                 android:layout_height="41dp"
-                android:src="@drawable/outline_add_24"
+                android:src="@drawable/ic_add_black_24"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toRightOf="@id/enter_task_text"
                 app:layout_constraintRight_toRightOf="parent"

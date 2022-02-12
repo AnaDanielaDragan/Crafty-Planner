@@ -7,7 +7,7 @@
 
     <fragment
             android:id="@+id/navigation_tasks"
-            android:name="com.craftyplanner.ui.storage.TasksFragment"
+            android:name="com.craftyplanner.ui.tasks.TasksFragment"
             tools:layout="@layout/fragment_tasks"/>
 
     <fragment
@@ -17,6 +17,6 @@
 
     <fragment
             android:id="@+id/navigation_statistics"
-            android:name="com.craftyplanner.ui.more.StatisticsFragment"
+            android:name="com.craftyplanner.ui.statistics.StatisticsFragment"
             tools:layout="@layout/fragment_statistics"/>
 </navigation>

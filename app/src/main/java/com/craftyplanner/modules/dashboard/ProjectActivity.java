@@ -24,10 +24,9 @@ public class ProjectActivity extends AppCompatActivity {
     private TextView projectDescription;
     private TextView projectTaskCount;
     private RecyclerView recyclerView;
-    private Project currentProject;
 
     private ProjectDao projectDao;
-
+    private Project currentProject;
     private String projectId;
 
     private CustomApplication application;
@@ -45,21 +44,23 @@ public class ProjectActivity extends AppCompatActivity {
         currentProject = projectDao.getProjects().get(projectId);
 
         initializeElements();
-        handleProjectTaskCount();
+        updateProjectTaskCount();
     }
 
     @Override
     public void onResume() {
         super.onResume();
+
         currentProject = projectDao.getProjects().get(projectId);
+
         initializeElements();
-        handleProjectTaskCount();
+        updateProjectTaskCount();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.action_button_menu, menu);
+        inflater.inflate(R.menu.top_action_menu, menu);
         return true;
     }
 
@@ -127,11 +128,11 @@ public class ProjectActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.id_recyclerView_project);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        recyclerView.setAdapter(new TaskListAdapter(this, currentProject, projectDao));
+        recyclerView.setAdapter(new TaskListAdapter(currentProject, projectDao));
     }
 
     //Live update the task count
-    private void handleProjectTaskCount() {
+    private void updateProjectTaskCount() {
 
         currentProject.getTaskCount().observe(this, new Observer<Integer>() {
             @Override

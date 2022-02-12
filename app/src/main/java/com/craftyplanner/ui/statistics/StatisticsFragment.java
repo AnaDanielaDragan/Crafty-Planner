@@ -1,4 +1,4 @@
-package com.craftyplanner.ui.more;
+package com.craftyplanner.ui.statistics;
 
 import android.graphics.Color;
 import android.os.Bundle;

@@ -18,8 +18,6 @@ import org.jetbrains.annotations.NotNull;
 
 public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> {
 
-    //TODO: this class displays a list of projectSortedTasksCard (name, count, divider, task ckeckbox list)
-
     private Context context;
     private ArrayMap<String, Project> projects;
     private ProjectDao projectDao;
@@ -46,7 +44,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
         holder.projectName.setText(project.getTitle());
         holder.projectTaskCount.setText(project.getTaskCount().getValue() + "/" + project.getTasks().size());
         holder.projectTaskListRecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-        holder.projectTaskListRecyclerView.setAdapter(new TaskListAdapter(context, project, projectDao));
+        holder.projectTaskListRecyclerView.setAdapter(new TaskListAdapter(project, projectDao));
     }
 
     @Override

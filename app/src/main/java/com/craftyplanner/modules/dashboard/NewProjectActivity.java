@@ -23,20 +23,49 @@ public class NewProjectActivity extends AppCompatActivity {
     private EditText descriptionInputText;
     private EditText taskInputText;
     private RecyclerView recyclerView;
-    private AddTaskToNewProjectAdapter adapter;
-
     private Button saveProjectButton;
     private Button addTaskButton;
 
-    private ProjectDao projectDao;
+    private AddTaskAdapter adapter;
 
+    private ProjectDao projectDao;
     private Project currentProject;
+    private String option;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_project);
 
+        CustomApplication application = (CustomApplication) getApplication();
+        projectDao = application.getProjectDao();
+
+        Intent intent = getIntent();
+        option = intent.getStringExtra("Option");
+
+        initializeElements();
+
+        if(option.equals("edit")){
+            String currentProjectID = intent.getStringExtra("ProjectID");
+            currentProject = projectDao.getProjects().get(currentProjectID);
+
+            titleInputText.setText(currentProject.getTitle());
+            descriptionInputText.setText(currentProject.getDescription());
+            setRecyclerViewAdapter();
+        }
+        if(option.equals("save")){
+            currentProject = new Project("", "", new ArrayList<>(), 0, "");
+
+            setRecyclerViewAdapter();
+        }
+    }
+
+    private void setRecyclerViewAdapter() {
+        adapter = new AddTaskAdapter(currentProject.getTasks());
+        recyclerView.setAdapter(adapter);
+    }
+
+    private void initializeElements() {
         titleInputText = findViewById(R.id.id_title_textField);
         descriptionInputText = findViewById(R.id.id_description_textField);
         taskInputText = findViewById(R.id.enter_task_text);
@@ -45,29 +74,6 @@ public class NewProjectActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.id_recyclerView_tasks);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-
-        CustomApplication application = (CustomApplication) getApplication();
-        projectDao = application.getProjectDao();
-
-        Intent intent = getIntent();
-        String option = intent.getStringExtra("Option");
-
-        if(option.equals("edit")){
-            String currentProjectID = intent.getStringExtra("ProjectID");
-            currentProject = projectDao.getProjects().get(currentProjectID);
-
-            titleInputText.setText(currentProject.getTitle());
-            descriptionInputText.setText(currentProject.getDescription());
-            adapter = new AddTaskToNewProjectAdapter(currentProject.getTasks());
-            recyclerView.setAdapter(adapter);
-        }
-        if(option.equals("save")){
-            currentProject = new Project("", "", new ArrayList<>(), 0, "");
-
-            adapter = new AddTaskToNewProjectAdapter(currentProject.getTasks());
-            recyclerView.setAdapter(adapter);
-        }
-
 
         saveProjectButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,9 +91,8 @@ public class NewProjectActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                     currentProject.getTasks().add(new Task(taskInputText.getText().toString(), "UNCHECKED"));
-                    adapter = new AddTaskToNewProjectAdapter(currentProject.getTasks());
-                    recyclerView.setAdapter(adapter);
-                    taskInputText.setText("");
+                setRecyclerViewAdapter();
+                taskInputText.setText("");
             }
         });
     }

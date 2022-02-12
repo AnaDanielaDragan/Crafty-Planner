@@ -25,7 +25,7 @@ public class ShareProjectHandler {
 
     public void sendProject(Project project){
         String filename = "CraftyPlanner007";
-        String fileContents = ProjectParser.parseProjectToString(project);
+        String fileContents = ProjectContentParser.parseProjectToString(project);
 
         try (FileOutputStream fos = context.openFileOutput(filename, Context.MODE_PRIVATE)) {
             fos.write(fileContents.getBytes());

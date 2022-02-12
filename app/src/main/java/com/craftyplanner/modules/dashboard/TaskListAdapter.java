@@ -1,6 +1,5 @@
 package com.craftyplanner.modules.dashboard;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +16,10 @@ import java.util.Objects;
 
 public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHolder>{
 
-    private Context context;
     private Project currentProject;
     private ProjectDao projectDao;
 
-    public TaskListAdapter(Context context, Project currentProject, ProjectDao projectDao){
-        this.context = context;
+    public TaskListAdapter(Project currentProject, ProjectDao projectDao){
         this.currentProject = currentProject;
         this.projectDao = projectDao;
     }
@@ -31,7 +28,7 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHo
     @NotNull
     @Override
     public TaskListAdapter.ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.checkbox_activity_project, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.checkbox_task, parent, false);
         return new ViewHolder(view);
     }
 
