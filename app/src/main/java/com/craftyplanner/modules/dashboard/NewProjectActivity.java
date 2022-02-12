@@ -2,7 +2,6 @@ package com.craftyplanner.modules.dashboard;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -75,25 +74,19 @@ public class NewProjectActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.id_recyclerView_tasks);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
-        saveProjectButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(option.equals("edit")){
-                    editProject(currentProject);
-                }
-                else if(option.equals("save")){
-                    saveProject();
-                }
+        saveProjectButton.setOnClickListener(v -> {
+            if(option.equals("edit")){
+                editProject(currentProject);
+            }
+            else if(option.equals("save")){
+                saveProject();
             }
         });
 
-        addTaskButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                    currentProject.getTasks().add(new Task(taskInputText.getText().toString(), "UNCHECKED"));
-                setRecyclerViewAdapter();
-                taskInputText.setText("");
-            }
+        addTaskButton.setOnClickListener(v -> {
+                currentProject.getTasks().add(new Task(taskInputText.getText().toString(), "UNCHECKED"));
+            setRecyclerViewAdapter();
+            taskInputText.setText("");
         });
     }
 

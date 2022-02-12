@@ -114,6 +114,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
         db.close();
 
+        assert id != null;
         return id.toString();
     }
     public Project readProject(String projectID){

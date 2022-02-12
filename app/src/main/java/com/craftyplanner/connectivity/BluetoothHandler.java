@@ -8,14 +8,13 @@ import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.widget.Toast;
 
-import java.io.File;
 import java.util.List;
 
 import static androidx.core.content.ContextCompat.startActivity;
 
 public class BluetoothHandler {
 
-    private Context context;
+    private final Context context;
     private BluetoothAdapter bluetoothAdapter;
 
     public BluetoothHandler(Context context){

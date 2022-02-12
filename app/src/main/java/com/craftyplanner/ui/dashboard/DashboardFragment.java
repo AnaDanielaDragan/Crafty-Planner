@@ -39,7 +39,7 @@ public class DashboardFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_dashboard, container, false);
 
-        application = (CustomApplication) getActivity().getApplication();
+        application = (CustomApplication) requireActivity().getApplication();
 
         initializeFilterSpinner();
         initializeProjectListRecyclerView();
@@ -108,7 +108,7 @@ public class DashboardFragment extends Fragment {
 
     private void setSpinnerAdapter() {
         String [] statusList = {"ALL","NEW","IN_PROGRESS","DONE"};
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<> (getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, statusList);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<> (requireActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, statusList);
         selectStatusSpinner.setAdapter(arrayAdapter);
     }
 }

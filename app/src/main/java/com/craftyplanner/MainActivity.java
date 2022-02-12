@@ -1,6 +1,5 @@
 package com.craftyplanner;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.Menu;
@@ -88,32 +87,25 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("New project available");
         alert.setMessage("Save project to personal Dashboard?");
-        alert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+        alert.setPositiveButton(android.R.string.yes, (dialog, which) -> {
 
-            public void onClick(DialogInterface dialog, int which) {
-
-                StringBuilder contentBuilder = new StringBuilder();
-                try (Stream<String> stream = Files.lines( Paths.get(file.getPath()), StandardCharsets.UTF_8))
-                {
-                    stream.forEach(s -> contentBuilder.append(s));
-                }
-		        catch (IOException e)
-                {
-                    e.printStackTrace();
-                }
-
-                String projectContent = contentBuilder.toString();
-                Project importedProject = ProjectContentParser.parseStringToProject(projectContent);
-                projectDao.addProject(importedProject);
-
-                file.delete();
+            StringBuilder contentBuilder = new StringBuilder();
+            try (Stream<String> stream = Files.lines( Paths.get(file.getPath()), StandardCharsets.UTF_8))
+            {
+                stream.forEach(contentBuilder::append);
             }
-        });
-        alert.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
+            catch (IOException e)
+            {
+                e.printStackTrace();
             }
+
+            String projectContent = contentBuilder.toString();
+            Project importedProject = ProjectContentParser.parseStringToProject(projectContent);
+            projectDao.addProject(importedProject);
+
+            file.delete();
         });
+        alert.setNegativeButton(android.R.string.no, (dialog, which) -> dialog.cancel());
         alert.show();
     }
 }

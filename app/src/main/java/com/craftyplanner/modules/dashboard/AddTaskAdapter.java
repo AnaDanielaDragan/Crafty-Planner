@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class AddTaskAdapter extends RecyclerView.Adapter<AddTaskAdapter.ViewHolder>{
 
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
     public AddTaskAdapter(ArrayList<Task> tasks){
         this.tasks = tasks;
@@ -34,13 +34,10 @@ public class AddTaskAdapter extends RecyclerView.Adapter<AddTaskAdapter.ViewHold
         Task currentTask = tasks.get(position);
 
         holder.text.setText(currentTask.getText());
-        holder.deleteButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                tasks.remove(currentTask);
-                notifyItemRemoved(holder.getAdapterPosition());
-                notifyItemRangeChanged(holder.getAdapterPosition(), tasks.size());
-            }
+        holder.deleteButton.setOnClickListener(v -> {
+            tasks.remove(currentTask);
+            notifyItemRemoved(holder.getAdapterPosition());
+            notifyItemRangeChanged(holder.getAdapterPosition(), tasks.size());
         });
     }
 
@@ -49,10 +46,10 @@ public class AddTaskAdapter extends RecyclerView.Adapter<AddTaskAdapter.ViewHold
         return tasks.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView text;
-        private Button deleteButton;
+        private final TextView text;
+        private final Button deleteButton;
 
         public ViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);

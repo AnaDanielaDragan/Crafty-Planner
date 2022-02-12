@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.craftyplanner.CustomApplication;
-import com.craftyplanner.R;;
+import com.craftyplanner.R;
 import com.craftyplanner.dao.ProjectDao;
 import com.craftyplanner.modules.tasks.TasksAdapter;
 import com.craftyplanner.objects.Project;
@@ -34,7 +34,7 @@ public class TasksFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_tasks, container, false);
 
-        application = (CustomApplication) getActivity().getApplication();
+        application = (CustomApplication) requireActivity().getApplication();
         projectDao = application.getProjectDao();
 
         initializeFilterSpinner();
@@ -69,7 +69,7 @@ public class TasksFragment extends Fragment {
 
     private void setArrayAdapter() {
         String [] statusList = {"ALL","IN_PROGRESS"};
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<> (getActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, statusList);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<> (requireActivity().getBaseContext(), android.R.layout.simple_spinner_dropdown_item, statusList);
         selectedProjects.setAdapter(arrayAdapter);
     }
 

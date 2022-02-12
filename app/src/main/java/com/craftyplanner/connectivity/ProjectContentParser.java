@@ -18,9 +18,7 @@ public class ProjectContentParser {
         AtomicReference<String> projectContent = new AtomicReference<>("");
 
         projectContent.set(projectContent + project.getTitle() + ";" + project.getDescription() + ";" + project.getStatus() + ";");
-        project.getTasks().forEach(task -> {
-            projectContent.set(projectContent + task.getText() + ",");
-        });
+        project.getTasks().forEach(task -> projectContent.set(projectContent + task.getText() + ","));
 
         return projectContent.get();
     }
@@ -34,9 +32,7 @@ public class ProjectContentParser {
         String[] tasksContent = stringContent[3].split(",");
 
         ArrayList<Task> tasks = new ArrayList<>();
-        Arrays.stream(tasksContent).forEach(task -> {
-            tasks.add(new Task(task, "UNCHECKED"));
-        });
+        Arrays.stream(tasksContent).forEach(task -> tasks.add(new Task(task, "UNCHECKED")));
 
         return new Project(title, description, tasks, 0, status);
     }

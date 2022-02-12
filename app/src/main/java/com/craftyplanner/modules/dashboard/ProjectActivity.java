@@ -1,6 +1,6 @@
 package com.craftyplanner.modules.dashboard;
 
-import android.content.DialogInterface;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -9,7 +9,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.craftyplanner.CustomApplication;
@@ -64,6 +63,7 @@ public class ProjectActivity extends AppCompatActivity {
         return true;
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
@@ -94,18 +94,11 @@ public class ProjectActivity extends AppCompatActivity {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("Delete project");
         alert.setMessage("Are you sure you want to delete " +  currentProject.getTitle() + "?");
-        alert.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-
-            public void onClick(DialogInterface dialog, int which) {
-                projectDao.deleteProject(currentProject);
-                finish();
-            }
+        alert.setPositiveButton(android.R.string.yes, (dialog, which) -> {
+            projectDao.deleteProject(currentProject);
+            finish();
         });
-        alert.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
+        alert.setNegativeButton(android.R.string.no, (dialog, which) -> dialog.cancel());
         alert.show();
     }
 
@@ -132,13 +125,9 @@ public class ProjectActivity extends AppCompatActivity {
     }
 
     //Live update the task count
+    @SuppressLint("SetTextI18n")
     private void updateProjectTaskCount() {
 
-        currentProject.getTaskCount().observe(this, new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer integer) {
-                projectTaskCount.setText(integer + "/" + currentProject.getTasks().size());
-            }
-        });
+        currentProject.getTaskCount().observe(this, integer -> projectTaskCount.setText(integer + "/" + currentProject.getTasks().size()));
     }
 }
